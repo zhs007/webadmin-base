@@ -7,27 +7,27 @@ import styles from './index.less'
 
 const FormItem = Form.Item
 
-const Login = ({
-  login,
+const Reg = ({
+  reg,
   dispatch,
   form: {
     getFieldDecorator,
     validateFieldsAndScroll,
   },
 }) => {
-  const { loginLoading } = login
+  const { regLoading } = reg
 
-  function handleOk () {
+  function handleLogin () {
+      window.location = `${location.origin}/login`
+  }
+
+  function handleReg () {
     validateFieldsAndScroll((errors, values) => {
       if (errors) {
         return
       }
       dispatch({ type: 'login/login', payload: values })
     })
-  }
-
-  function handleReg () {
-    window.location = `${location.origin}/reg`
   }
 
   return (
@@ -44,7 +44,7 @@ const Login = ({
                 required: true,
               },
             ],
-          })(<Input size="large" onPressEnter={handleOk} placeholder="Username" />)}
+          })(<Input size="large" onPressEnter={handleReg} placeholder="Username" />)}
         </FormItem>
         <FormItem hasFeedback>
           {getFieldDecorator('password', {
@@ -53,20 +53,25 @@ const Login = ({
                 required: true,
               },
             ],
-          })(<Input size="large" type="password" onPressEnter={handleOk} placeholder="Password" />)}
+          })(<Input size="large" type="password" onPressEnter={handleReg} placeholder="Password" />)}
+        </FormItem>
+        <FormItem hasFeedback>
+          {getFieldDecorator('repassword', {
+            rules: [
+              {
+                required: true,
+              },
+            ],
+          })(<Input size="large" type="password" onPressEnter={handleReg} placeholder="Repassword" />)}
         </FormItem>
         <Row>
-          <Button type="primary" size="large" onClick={handleOk} loading={loginLoading}>
-            {lang[config.lang].login}
-          </Button>
-          <p></p>
-          <Button type="default" size="large" onClick={handleReg} loading={loginLoading}>
+          <Button type="primary" size="large" onClick={handleReg} loading={regLoading}>
             {lang[config.lang].reg}
           </Button>
-          <p>
-            <span>Username：guest</span>
-            <span>Password：guest</span>
-          </p>
+          <p></p>
+          <Button type="default" size="large" onClick={handleLogin} loading={regLoading}>
+            {lang[config.lang].login}
+          </Button>
         </Row>
 
       </form>
@@ -74,10 +79,10 @@ const Login = ({
   )
 }
 
-Login.propTypes = {
+Reg.propTypes = {
   form: PropTypes.object,
-  login: PropTypes.object,
+  reg: PropTypes.object,
   dispatch: PropTypes.func,
 }
 
-export default connect(({ login }) => ({ login }))(Form.create()(Login))
+export default connect(({ reg }) => ({ reg }))(Form.create()(Reg))
