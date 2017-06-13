@@ -44,7 +44,7 @@ const Reg = ({
                 required: true,
               },
             ],
-          })(<Input size="large" onPressEnter={handleReg} placeholder="Username" />)}
+          })(<Input size="large" onPressEnter={handleReg} placeholder={lang[config.lang].inputusername} />)}
         </FormItem>
         <FormItem hasFeedback>
           {getFieldDecorator('password', {
@@ -53,7 +53,7 @@ const Reg = ({
                 required: true,
               },
             ],
-          })(<Input size="large" type="password" onPressEnter={handleReg} placeholder="Password" />)}
+          })(<Input size="large" type="password" onPressEnter={handleReg} placeholder={lang[config.lang].inputpassword} />)}
         </FormItem>
         <FormItem hasFeedback>
           {getFieldDecorator('repassword', {
@@ -62,7 +62,7 @@ const Reg = ({
                 required: true,
               },
             ],
-          })(<Input size="large" type="password" onPressEnter={handleReg} placeholder="Repassword" />)}
+          })(<Input size="large" type="password" onPressEnter={handleReg} placeholder={lang[config.lang].inputrepassword} />)}
         </FormItem>
         <Row>
           <Button type="primary" size="large" onClick={handleReg} loading={regLoading}>
@@ -70,8 +70,9 @@ const Reg = ({
           </Button>
           <p></p>
           <Button type="default" size="large" onClick={handleLogin} loading={regLoading}>
-            {lang[config.lang].login}
+            {lang[config.lang].reg2login}
           </Button>
+          <p><span>{config.footerText}</span></p>
         </Row>
 
       </form>

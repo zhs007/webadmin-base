@@ -44,7 +44,7 @@ const Login = ({
                 required: true,
               },
             ],
-          })(<Input size="large" onPressEnter={handleOk} placeholder="Username" />)}
+          })(<Input size="large" onPressEnter={handleOk} placeholder={lang[config.lang].inputusername} />)}
         </FormItem>
         <FormItem hasFeedback>
           {getFieldDecorator('password', {
@@ -53,7 +53,7 @@ const Login = ({
                 required: true,
               },
             ],
-          })(<Input size="large" type="password" onPressEnter={handleOk} placeholder="Password" />)}
+          })(<Input size="large" type="password" onPressEnter={handleOk} placeholder={lang[config.lang].inputpassword} />)}
         </FormItem>
         <Row>
           <Button type="primary" size="large" onClick={handleOk} loading={loginLoading}>
@@ -61,11 +61,10 @@ const Login = ({
           </Button>
           <p></p>
           <Button type="default" size="large" onClick={handleReg} loading={loginLoading}>
-            {lang[config.lang].reg}
+            {lang[config.lang].login2reg}
           </Button>
           <p>
-            <span>Username：guest</span>
-            <span>Password：guest</span>
+            <span>{config.footerText}</span>
           </p>
         </Row>
 
