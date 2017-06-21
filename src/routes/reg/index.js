@@ -26,7 +26,7 @@ const Reg = ({
       if (errors) {
         return
       }
-      dispatch({ type: 'login/login', payload: values })
+      dispatch({ type: 'reg/reg', payload: values })
     })
   }
 
