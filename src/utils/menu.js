@@ -1,4 +1,4 @@
-module.exports = [
+const DEF_MENU_NORMAL = [
   {
     id: 1,
     icon: 'laptop',
@@ -6,25 +6,11 @@ module.exports = [
     router: '/dashboard',
   },
   {
-    id: 2,
-    bpid: 1,
-    name: 'Users',
-    icon: 'user',
-    router: '/user',
-  },
-  {
     id: 7,
     bpid: 1,
     name: 'Posts',
     icon: 'shopping-cart',
     router: '/post',
-  },
-  {
-    id: 21,
-    mpid: -1,
-    bpid: 2,
-    name: 'User Detail',
-    router: '/user/:id',
   },
   {
     id: 3,
@@ -151,4 +137,50 @@ module.exports = [
     name: 'Test Navigation22',
     router: '/navigation/navigation2/navigation2',
   },
-]
+];
+
+const DEF_MENU_ADMIN = [
+  {
+    id: 2,
+    bpid: 1,
+    name: 'Users',
+    icon: 'user',
+    router: '/user',
+  },
+  {
+    id: 21,
+    mpid: -1,
+    bpid: 2,
+    name: 'User Detail',
+    router: '/user/:id',
+  },
+];
+
+function getMyMenu(permissions) {
+  if (permissions.indexOf('root') >= 0) {
+    let arr = [];
+    for (let i = 0; i < DEF_MENU_NORMAL.length; ++i) {
+      arr.push(DEF_MENU_NORMAL[i]);
+    }
+
+    for (let i = 0; i < DEF_MENU_ADMIN.length; ++i) {
+      arr.push(DEF_MENU_ADMIN[i]);
+    }
+
+    arr.sort(function (a, b) {
+      if (a.id < b.id) {
+        return -1;
+      }
+
+      return 1;
+    });
+
+    return arr;
+  }
+
+  return DEF_MENU_NORMAL;
+}
+
+module.exports = {
+  getMyMenu: getMyMenu
+}

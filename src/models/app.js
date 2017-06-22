@@ -1,16 +1,17 @@
 import { getToken, queryWithToken, logout } from '../services/account'
 import { routerRedux } from 'dva/router'
 import { parse } from 'qs'
-import { config } from '../utils'
+import { config, getMyMenu } from '../utils'
 const { prefix } = config
 
 export default {
   namespace: 'app',
   state: {
+    menu: getMyMenu([]),
     user: {},
     menuPopoverVisible: false,
     siderFold: localStorage.getItem(`${prefix}siderFold`) === 'true',
-    darkTheme: localStorage.getItem(`${prefix}darkTheme`) === 'true',
+    darkTheme: true,
     isNavbar: document.body.clientWidth < 769,
     navOpenKeys: JSON.parse(localStorage.getItem(`${prefix}navOpenKeys`)) || [],
   },
@@ -40,7 +41,7 @@ export default {
       if (data.success && data.uid > 0) {
         yield put({
           type: 'querySuccess',
-          payload: {uid: data.uid, username: data.username},
+          payload: {uid: data.uid, username: data.username, permissions: data.permissions},
         })
         if (location.pathname === '/login') {
           yield put(routerRedux.push('/dashboard'))
@@ -84,6 +85,7 @@ export default {
       return {
         ...state,
         user,
+        menu: getMyMenu(user.permissions)
       }
     },
 

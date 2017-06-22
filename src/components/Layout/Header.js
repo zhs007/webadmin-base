@@ -11,7 +11,7 @@ const Header = ({ user, logout, switchSider, siderFold, isNavbar, menuPopoverVis
   const menusProps = {
     menu,
     siderFold: false,
-    darkTheme: false,
+    darkTheme: true,
     isNavbar,
     handleClickNavMenu: switchMenuPopover,
     location,
