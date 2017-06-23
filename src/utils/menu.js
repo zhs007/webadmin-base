@@ -137,6 +137,13 @@ const DEF_MENU_NORMAL = [
     name: 'Test Navigation22',
     router: '/navigation/navigation2/navigation2',
   },
+  {
+    id: 8,
+    bpid: 1,
+    name: 'Mails',
+    icon: 'mail',
+    router: '/mail',
+  },  
 ];
 
 const DEF_MENU_ADMIN = [

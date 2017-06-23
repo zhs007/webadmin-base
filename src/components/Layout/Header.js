@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Menu, Icon, Popover } from 'antd'
+import { Menu, Icon, Popover, Badge } from 'antd'
 import styles from './Header.less'
 import Menus from './Menu'
 
@@ -8,6 +8,11 @@ const SubMenu = Menu.SubMenu
 
 const Header = ({ user, logout, switchSider, siderFold, isNavbar, menuPopoverVisible, location, switchMenuPopover, navOpenKeys, changeOpenKeys, menu }) => {
   let handleClickMenu = e => e.key === 'logout' && logout()
+
+  let handleMail =  () => {
+    window.location = '/mail'
+  }
+
   const menusProps = {
     menu,
     siderFold: false,
@@ -30,8 +35,8 @@ const Header = ({ user, logout, switchSider, siderFold, isNavbar, menuPopoverVis
           <Icon type={siderFold ? 'menu-unfold' : 'menu-fold'} />
         </div>}
       <div className={styles.rightWarpper}>
-        <div className={styles.button}>
-          <Icon type="mail" />
+        <div className={styles.button} onClick={handleMail}>
+          <Badge count={user.noreadmail}><Icon type="mail" /></Badge>
         </div>
         <Menu mode="horizontal" onClick={handleClickMenu}>
           <SubMenu style={{

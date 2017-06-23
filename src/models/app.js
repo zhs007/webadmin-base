@@ -41,7 +41,7 @@ export default {
       if (data.success && data.uid > 0) {
         yield put({
           type: 'querySuccess',
-          payload: {uid: data.uid, username: data.username, permissions: data.permissions},
+          payload: {uid: data.uid, username: data.username, permissions: data.permissions, noreadmail: data.noreadmail},
         })
         if (location.pathname === '/login') {
           yield put(routerRedux.push('/dashboard'))
