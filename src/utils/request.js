@@ -76,7 +76,7 @@ const fetch = (options) => {
 
 export default function request (options) {
   console.log(JSON.stringify(options));
-  console.trace();
+  // console.trace();
   // logCallStack();
 
   if (options.url && options.url.indexOf('//') > -1) {

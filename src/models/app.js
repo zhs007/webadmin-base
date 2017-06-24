@@ -34,14 +34,20 @@ export default {
     *query ({
       payload,
     }, { call, put }) {
-      console.log(JSON.stringify(payload))
+      // console.log(JSON.stringify(payload))
       const token = getToken()
       const data = yield call(queryWithToken, {token: token})
       console.log(JSON.stringify(data))
       if (data.success && data.uid > 0) {
         yield put({
           type: 'querySuccess',
-          payload: {uid: data.uid, username: data.username, permissions: data.permissions, noreadmail: data.noreadmail},
+          payload: {
+            uid: data.uid, 
+            username: data.username, 
+            nickname: data.nickname, 
+            permissions: data.permissions, 
+            noreadmail: data.noreadmail
+          },
         })
         if (location.pathname === '/login') {
           yield put(routerRedux.push('/dashboard'))
