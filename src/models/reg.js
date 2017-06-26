@@ -1,4 +1,4 @@
-import { reg, saveToken } from '../services/account'
+import { reg } from '../services/account'
 import { routerRedux } from 'dva/router'
 import { queryURL } from '../utils'
 
@@ -18,7 +18,7 @@ export default {
       yield put({ type: 'hideRegLoading' })
       console.log(JSON.stringify(data))
       if (data.success) {
-        saveToken(data.token);
+        // saveToken(data.token);
 
         const from = queryURL('from')
         yield put({ type: 'app/query' })

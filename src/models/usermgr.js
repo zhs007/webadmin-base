@@ -1,15 +1,14 @@
 import modelExtend from 'dva-model-extend'
-// import { getToken } from '../services/account'
 import { create, remove, update } from '../services/user'
-import * as usersService from '../services/mail'
+import * as usersService from '../services/users'
 import { pageModel } from './common'
-import { config, myUserInfo } from '../utils'
+import { config } from '../utils'
 
 const { query } = usersService
 const { prefix } = config
 
 export default modelExtend(pageModel, {
-  namespace: 'mail',
+  namespace: 'user',
 
   state: {
     currentItem: {},
@@ -22,7 +21,7 @@ export default modelExtend(pageModel, {
   subscriptions: {
     setup ({ dispatch, history }) {
       history.listen(location => {
-        if (location.pathname === '/mail') {
+        if (location.pathname === '/user') {
           dispatch({
             type: 'query',
             payload: location.query,
@@ -35,18 +34,16 @@ export default modelExtend(pageModel, {
   effects: {
 
     *query ({ payload = {} }, { call, put }) {
-      const token = myUserInfo.token
-      const ret = yield call(query, {token: token, nums: 30})
-      if (ret.success && ret.data.isok) {
-        console.log(JSON.stringify(ret))
+      const data = yield call(query, payload)
+      if (data) {
         yield put({
           type: 'querySuccess',
           payload: {
-            list: ret.data.lstmail,
+            list: data.data,
             pagination: {
               current: Number(payload.page) || 1,
               pageSize: Number(payload.pageSize) || 10,
-              total: ret.data.lstmail.length,
+              total: data.total,
             },
           },
         })

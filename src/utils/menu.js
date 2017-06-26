@@ -6,6 +6,20 @@ const DEF_MENU_NORMAL = [
     router: '/dashboard',
   },
   {
+    id: 2,
+    bpid: 1,
+    name: 'Users',
+    icon: 'user',
+    router: '/user',
+  },
+  {
+    id: 21,
+    mpid: -1,
+    bpid: 2,
+    name: 'User Detail',
+    router: '/user/:id',
+  },  
+  {
     id: 7,
     bpid: 1,
     name: 'Posts',
@@ -137,30 +151,45 @@ const DEF_MENU_NORMAL = [
     name: 'Test Navigation22',
     router: '/navigation/navigation2/navigation2',
   },
+
   {
     id: 8,
+    bpid: 1,
+    name: 'Range',
+    icon: 'database',
+    router: '/range',
+  },  
+  {
+    id: 10,
     bpid: 1,
     name: 'Mails',
     icon: 'mail',
     router: '/mail',
-  },  
+  },
 ];
 
 const DEF_MENU_ADMIN = [
   {
-    id: 2,
+    id: 9,
     bpid: 1,
-    name: 'Users',
+    name: 'UserMgr',
     icon: 'user',
-    router: '/user',
+    router: '/usermgr',
   },
   {
-    id: 21,
+    id: 91,
     mpid: -1,
-    bpid: 2,
-    name: 'User Detail',
-    router: '/user/:id',
+    bpid: 9,
+    name: 'UserMgr Detail',
+    router: '/usermgr/:id',
   },
+  {
+    id: 11,
+    bpid: 1,
+    name: 'SendMails',
+    icon: 'bars',
+    router: '/sendmail',
+  },    
 ];
 
 function getMyMenu(permissions) {

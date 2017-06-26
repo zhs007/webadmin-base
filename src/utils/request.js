@@ -5,6 +5,7 @@ import jsonp from 'jsonp'
 import lodash from 'lodash'
 import pathToRegexp from 'path-to-regexp'
 import { message } from 'antd'
+import { onResponse } from './response'
 
 axios.defaults.baseURL = baseURL
 
@@ -95,12 +96,16 @@ export default function request (options) {
   return fetch(options).then((response) => {
     const { statusText, status } = response
     let data = options.fetchType === 'YQL' ? response.data.query.results.json : response.data
-    return {
+    // console.log(data)
+    let ret = {
       success: true,
       message: statusText,
       status,
-      ...data,
+      data: data,
     }
+    // console.log(ret.data)
+    onResponse(ret.data)
+    return ret
   }).catch((error) => {
     const { response } = error
     let msg
@@ -115,6 +120,6 @@ export default function request (options) {
       status = 600
       msg = 'Network Error'
     }
-    return { success: false, status, message: msg, ...otherData }
+    return { success: false, status, message: msg, data: otherData }
   })
 }

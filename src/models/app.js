@@ -1,7 +1,7 @@
-import { getToken, queryWithToken, logout } from '../services/account'
+import { queryWithToken, logout } from '../services/account'
 import { routerRedux } from 'dva/router'
 import { parse } from 'qs'
-import { config, getMyMenu } from '../utils'
+import { config, getMyMenu, myUserInfo } from '../utils'
 const { prefix } = config
 
 export default {
@@ -35,19 +35,13 @@ export default {
       payload,
     }, { call, put }) {
       // console.log(JSON.stringify(payload))
-      const token = getToken()
-      const data = yield call(queryWithToken, {token: token})
-      console.log(JSON.stringify(data))
-      if (data.success && data.uid > 0) {
+      // const token = myUserInfo.token
+      const ret = yield call(queryWithToken, {token: myUserInfo.token})
+      // console.log(JSON.stringify(ret))
+      if (ret.success && ret.data.isok) {
         yield put({
           type: 'querySuccess',
-          payload: {
-            uid: data.uid, 
-            username: data.username, 
-            nickname: data.nickname, 
-            permissions: data.permissions, 
-            noreadmail: data.noreadmail
-          },
+          payload: myUserInfo,
         })
         if (location.pathname === '/login') {
           yield put(routerRedux.push('/dashboard'))
@@ -66,7 +60,7 @@ export default {
     *logout ({
       payload,
     }, { call, put }) {
-      const token = getToken()
+      const token = myUserInfo.token
       const data = yield call(logout, {token: token})
       if (data.success) {
         yield put({ type: 'query' })

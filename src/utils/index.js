@@ -5,6 +5,7 @@ import classnames from 'classnames'
 import { color } from './theme'
 import lodash from 'lodash'
 import lang from './lang'
+import { myUserInfo } from './logicevent'
 
 // 连字符转驼峰
 String.prototype.hyphenToHump = function () {
@@ -110,4 +111,5 @@ module.exports = {
   queryArray,
   arrayToTree,
   lang,
+  myUserInfo,
 }

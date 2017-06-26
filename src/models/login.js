@@ -1,4 +1,4 @@
-import { login, saveToken } from '../services/account'
+import { login } from '../services/account'
 import { routerRedux } from 'dva/router'
 import { queryURL } from '../utils'
 
@@ -12,13 +12,13 @@ export default {
     *login ({
       payload,
     }, { put, call }) {
-      console.log(JSON.stringify(payload));
+      // console.log(JSON.stringify(payload));
       yield put({ type: 'showLoginLoading' })
-      const data = yield call(login, payload)
-      console.log(JSON.stringify(data));
+      const ret = yield call(login, payload)
+      // console.log(JSON.stringify(ret));
       yield put({ type: 'hideLoginLoading' })
-      if (data.success) {
-        saveToken(data.token);
+      if (ret.success && ret.data.isok) {
+        // saveToken(ret.data.myuserinfo.token)
 
         const from = queryURL('from')
         yield put({ type: 'app/query' })
