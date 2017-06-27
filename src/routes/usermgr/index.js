@@ -7,8 +7,8 @@ import List from './List'
 import Filter from './Filter'
 import Modal from './Modal'
 
-const UserMgr = ({ location, dispatch, user, loading }) => {
-  const { list, pagination, currentItem, modalVisible, modalType, isMotion, selectedRowKeys } = user
+const UserMgr = ({ location, dispatch, usermgr, loading }) => {
+  const { list, pagination, currentItem, modalVisible, modalType, isMotion, selectedRowKeys } = usermgr
   const { pageSize } = pagination
 
   const modalProps = {
@@ -33,7 +33,7 @@ const UserMgr = ({ location, dispatch, user, loading }) => {
 
   const listProps = {
     dataSource: list,
-    loading: loading.effects['user/query'],
+    loading: loading.effects['usermgr/query'],
     pagination,
     location,
     isMotion,
@@ -50,13 +50,13 @@ const UserMgr = ({ location, dispatch, user, loading }) => {
     },
     onDeleteItem (id) {
       dispatch({
-        type: 'user/delete',
+        type: 'usermgr/delete',
         payload: id,
       })
     },
     onEditItem (item) {
       dispatch({
-        type: 'user/showModal',
+        type: 'usermgr/showModal',
         payload: {
           modalType: 'update',
           currentItem: item,
@@ -67,7 +67,7 @@ const UserMgr = ({ location, dispatch, user, loading }) => {
       selectedRowKeys,
       onChange: (keys) => {
         dispatch({
-          type: 'user/updateState',
+          type: 'usermgr/updateState',
           payload: {
             selectedRowKeys: keys,
           },
@@ -93,31 +93,31 @@ const UserMgr = ({ location, dispatch, user, loading }) => {
     },
     onSearch (fieldsValue) {
       fieldsValue.keyword.length ? dispatch(routerRedux.push({
-        pathname: '/user',
+        pathname: '/usermgr',
         query: {
           field: fieldsValue.field,
           keyword: fieldsValue.keyword,
         },
       })) : dispatch(routerRedux.push({
-        pathname: '/user',
+        pathname: '/usermgr',
       }))
     },
     onAdd () {
       dispatch({
-        type: 'user/showModal',
+        type: 'usermgr/showModal',
         payload: {
           modalType: 'create',
         },
       })
     },
     switchIsMotion () {
-      dispatch({ type: 'user/switchIsMotion' })
+      dispatch({ type: 'usermgr/switchIsMotion' })
     },
   }
 
   const handleDeleteItems = () => {
     dispatch({
-      type: 'user/multiDelete',
+      type: 'usermgr/multiDelete',
       payload: {
         ids: selectedRowKeys,
       },
@@ -145,10 +145,10 @@ const UserMgr = ({ location, dispatch, user, loading }) => {
 }
 
 UserMgr.propTypes = {
-  user: PropTypes.object,
+  usermgr: PropTypes.object,
   location: PropTypes.object,
   dispatch: PropTypes.func,
   loading: PropTypes.object,
 }
 
-export default connect(({ user, loading }) => ({ user, loading }))(UserMgr)
+export default connect(({ usermgr, loading }) => ({ usermgr, loading }))(UserMgr)

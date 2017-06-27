@@ -1,14 +1,14 @@
 import modelExtend from 'dva-model-extend'
 import { create, remove, update } from '../services/user'
-import * as usersService from '../services/users'
+import * as usersService from '../services/usermgr'
 import { pageModel } from './common'
-import { config } from '../utils'
+import { config, myUserInfo } from '../utils'
 
-const { query } = usersService
+const { getUserList } = usersService
 const { prefix } = config
 
 export default modelExtend(pageModel, {
-  namespace: 'user',
+  namespace: 'usermgr',
 
   state: {
     currentItem: {},
@@ -21,7 +21,7 @@ export default modelExtend(pageModel, {
   subscriptions: {
     setup ({ dispatch, history }) {
       history.listen(location => {
-        if (location.pathname === '/user') {
+        if (location.pathname === '/usermgr') {
           dispatch({
             type: 'query',
             payload: location.query,
@@ -34,16 +34,17 @@ export default modelExtend(pageModel, {
   effects: {
 
     *query ({ payload = {} }, { call, put }) {
-      const data = yield call(query, payload)
-      if (data) {
+      const ret = yield call(getUserList, {token: myUserInfo.token, nums: 30})
+      console.log(ret)
+      if (ret && ret.data.isok) {
         yield put({
           type: 'querySuccess',
           payload: {
-            list: data.data,
+            list: ret.data.lstuser,
             pagination: {
               current: Number(payload.page) || 1,
               pageSize: Number(payload.pageSize) || 10,
-              total: data.total,
+              total: ret.data.lstuser.length,
             },
           },
         })

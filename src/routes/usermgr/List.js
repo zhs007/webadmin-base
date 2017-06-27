@@ -25,22 +25,29 @@ const List = ({ onDeleteItem, onEditItem, isMotion, location, ...tableProps }) =
 
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'UserID',
+      dataIndex: 'uid',
+      key: 'uid',
       render: (text, record) => <Link to={`user/${record.id}`}>{text}</Link>,
     }, {
       title: 'NickName',
-      dataIndex: 'nickName',
-      key: 'nickName',
+      dataIndex: 'nickname',
+      key: 'nickname',
     }, {
       title: 'CreateTime',
-      dataIndex: 'createTime',
-      key: 'createTime',
+      dataIndex: 'createtime',
+      key: 'createtime',
     }, {
       title: 'LastLoginTime',
-      dataIndex: 'lastloginTime',
-      key: 'lastloginTime',
+      dataIndex: 'lastlogintime',
+      key: 'lastlogintime',
+    }, {
+      title: 'IsRoot',
+      dataIndex: 'isroot',
+      key: 'isroot',
+      render: (text) => <span>{text
+            ? 'Root'
+            : ''}</span>,
     }, {      
       title: 'Operation',
       key: 'operation',

@@ -17,6 +17,7 @@ module.exports = {
     userLogout: '/account/logout',
     userQuery: '/account/querywithtoken',
     mailGet: '/mail/get',
+    usermgrGet: '/usermgr/get',
     
     userInfo: '/userInfo',
     users: '/users',
